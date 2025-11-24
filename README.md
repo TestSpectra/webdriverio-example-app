@@ -14,6 +14,23 @@ For a full reference of our documentation, go to [docs.webdriver.io](https://doc
 [semantic-image]: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
 [semantic-url]: https://github.com/semantic-release/semantic-release
 
+## Deployment
+
+### Google Pages Publication
+
+This project is configured to automatically deploy to GitHub Pages on every push to the main branch. The deployment workflow:
+
+1. Builds the application using Vite
+2. Deploys the built files to GitHub Pages
+3. Makes the app publicly accessible at `https://<username>.github.io/webdriverio-example-app`
+
+**Setup Requirements:**
+- Ensure GitHub Pages is enabled in your repository settings
+- Set the publishing source to "GitHub Actions"
+- The workflow will automatically handle the deployment
+
+For more details, see [.github/workflows/deploy-pages.yml](.github/workflows/deploy-pages.yml).
+
 ## CI Status
 
 The following table lists live workflows from various CI providers. These each independently test the contents of this example repository. They run and record using a reporting tool. Each CI provider shows its build status on its own site:
@@ -25,6 +42,7 @@ The following table lists live workflows from various CI providers. These each i
 | **GitHub Actions** | [using-action.yml][Cy GitHub Actions workflow] | [![Cypress GHA status][Cy GitHub Actions badge]][Cy GitHub Actions log] |                    |
 | [GitHub Actions][GHA docs]                             | [single.yml][GHA workflow single]              | [![Single tests status][GHA badge single]][GHA log single]              |                    |
 | [GitHub Actions][GHA docs]                             | [parallel.yml][GHA workflow parallel]          | [![Parallel tests status][GHA badge parallel]][GHA log parallel]        |                    |
+| [GitHub Actions][GHA docs]                             | [deploy-pages.yml][GHA workflow deploy]        | GitHub Pages Deployment                                                 |                    |
 
 <!-- CI provider links -->
 [AppVeyor docs]:            https://www.appveyor.com/docs/
@@ -49,6 +67,7 @@ The following table lists live workflows from various CI providers. These each i
 [GHA log parallel]:       https://github.com/webdriverio/webdriverio-example-app/actions/workflows/parallel.yml?query=branch%3Amaster
 [GHA workflow single]:  .github/workflows/single.yml
 [GHA workflow parallel]:  .github/workflows/parallel.yml
+[GHA workflow deploy]:  .github/workflows/deploy-pages.yml
 
 
 ## CI Workflow Examples

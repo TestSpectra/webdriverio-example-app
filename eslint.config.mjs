@@ -2,7 +2,6 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 import globals from 'globals'
 import js from '@eslint/js'
 import pluginMocha from 'eslint-plugin-mocha'
-import pluginCypress from 'eslint-plugin-cypress'
 import stylistic from '@stylistic/eslint-plugin'
 import json from '@eslint/json'
 
@@ -13,7 +12,6 @@ export default defineConfig([
     extends: [
       js.configs.recommended,
       pluginMocha.configs.recommended,
-      pluginCypress.configs.recommended,
       stylistic.configs.recommended,
     ],
     rules: {

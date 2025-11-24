@@ -4,9 +4,9 @@ export default defineConfig({
   root: './app',
   server: {
     port: 3000,
-    open: true
+    open: true,
   },
   build: {
-    outDir: '../dist'
-  }
+    outDir: '../dist',
+  },
 })
