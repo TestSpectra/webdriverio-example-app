@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Example App | WebDriverIO Example">
+  <meta name="author" content="WebDriver.io">
+  <meta name="copyright" content="WebDriver.io, Inc">
+
+  <title>WebDriver.io: Example App</title>
+
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/vendor/fira.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">webdriver.io</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Commands <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/commands/querying">Querying</a></li>
+              <li><a href="/commands/traversal">Traversal</a></li>
+              <li><a href="/commands/actions">Actions</a></li>
+              <li><a href="/commands/window">Window</a></li>
+              <li><a href="/commands/viewport">Viewport</a></li>
+              <li><a href="/commands/location">Location</a></li>
+              <li><a href="/commands/navigation">Navigation</a></li>
+              <li><a href="/commands/assertions">Assertions</a></li>
+              <li><a href="/commands/misc">Misc</a></li>
+              <li><a href="/commands/connectors">Connectors</a></li>
+              <li><a href="/commands/aliasing">Aliasing</a></li>
+              <li><a href="/commands/waiting">Waiting</a></li>
+              <li><a href="/commands/network-requests">Network Requests</a></li>
+              <li><a href="/commands/files">Files</a></li>
+              <li class="active"><a href="/commands/storage">Storage</a></li>
+              <li><a href="/commands/cookies">Cookies</a></li>
+              <li><a href="/commands/spies-stubs-clocks">Spies, Stubs &amp; Clocks</a></li>
+            </ul>
+          </li>
+          <li><a href="/utilities">Utilities</a></li>
+          <li><a href="/webdriverio-api">WebDriverIO API</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="https://github.com/webdriverio/webdriverio-example-app">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <div class="container">
+      <h1>Storage</h1>
+      <p>Examples of managing localStorage and sessionStorage in WebDriverIO, for a full reference of commands, go to <a href="https://webdriver.io/docs/api" target="_blank">webdriver.io</a>
+      </p>
+    </div>
+  </div>
+  <div class="container content-container">
+    <div id="clearlocalstorage">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4><a href="https://webdriver.io/docs/api">Clear Local Storage</a></h4>
+          <p>To manage localStorage, use browser.execute() to access it directly.</p>
+          <pre><code class="javascript">// Click button to populate storage
+const btn = await $('.ls-btn')
+await btn.click()
+
+// Check localStorage values
+const storage = await browser.execute(() => localStorage)
+await expect(storage.prop1).toBe('red')
+await expect(storage.prop2).toBe('blue')
+await expect(storage.prop3).toBe('magenta')
+
+// Clear all localStorage
+await browser.execute(() => localStorage.clear())
+const cleared = await browser.execute(() => localStorage)
+await expect(Object.keys(cleared)).toHaveLength(0)
+
+// Populate again
+await btn.click()
+
+// Clear specific key
+await browser.execute(() => localStorage.removeItem('prop1'))
+const partial = await browser.execute(() => localStorage)
+await expect(partial.prop1).toBeUndefined()
+await expect(partial.prop2).toBe('blue')
+await expect(partial.prop3).toBe('magenta')</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <button class="ls-btn btn btn-success">Populate localStorage and sessionStorage</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="getalllocalstorage">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4><a href="https://webdriver.io/docs/api">Get Local Storage</a></h4>
+          <p>To get all data in localStorage, use browser.execute() to access it.</p>
+          <pre><code class="javascript">// Click button to populate storage
+const btn = await $('.ls-btn')
+await btn.click()
+
+// Get all localStorage data
+const storage = await browser.execute(() => {
+  return Object.fromEntries(Object.entries(localStorage))
+})
+
+await expect(storage).toEqual({
+  prop1: 'red',
+  prop2: 'blue',
+  prop3: 'magenta',
+})</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="clearalllocalstorage">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4><a href="https://webdriver.io/docs/api">Clear All Local Storage</a></h4>
+          <p>To clear all localStorage data, use browser.execute().</p>
+          <pre><code class="javascript">// Click button to populate storage
+const btn = await $('.ls-btn')
+await btn.click()
+
+// Clear all localStorage
+await browser.execute(() => localStorage.clear())
+
+// Verify it's cleared
+const storage = await browser.execute(() => localStorage.length)
+await expect(storage).toBe(0)</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="getallsessionstorage">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4><a href="https://webdriver.io/docs/api">Get Session Storage</a></h4>
+          <p>To get all data in sessionStorage, use browser.execute() to access it.</p>
+          <pre><code class="javascript">// Click button to populate storage
+const btn = await $('.ls-btn')
+await btn.click()
+
+// Get all sessionStorage data
+const storage = await browser.execute(() => {
+  return Object.fromEntries(Object.entries(sessionStorage))
+})
+
+await expect(storage).toEqual({
+  prop4: 'cyan',
+  prop5: 'yellow',
+  prop6: 'black',
+})</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="clearallsessionstorage">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4><a href="https://webdriver.io/docs/api">Clear All Session Storage</a></h4>
+          <p>To clear all sessionStorage data, use browser.execute().</p>
+          <pre><code class="javascript">// Click button to populate storage
+const btn = await $('.ls-btn')
+await btn.click()
+
+// Clear all sessionStorage
+await browser.execute(() => sessionStorage.clear())
+
+// Verify it's cleared
+const storage = await browser.execute(() => sessionStorage.length)
+await expect(storage).toBe(0)</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+  <script src="/assets/js/vendor/bootstrap.min.js"></script>
+  <script src="/assets/js/vendor/highlight.pack.js"></script>
+  <script src="/assets/js/scripts.js"></script>
+</body>
+</html>

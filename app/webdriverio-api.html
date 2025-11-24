@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Example App | Webdriver.io Example">
+  <meta name="author" content="Webdriver.io">
+  <meta name="copyright" content="Webdriver.io">
+
+  <title>Webdriver.io: Example App</title>
+
+  <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/vendor/fira.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">webdriver.io</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Commands <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/commands/querying">Querying</a></li>
+              <li><a href="/commands/traversal">Traversal</a></li>
+              <li><a href="/commands/actions">Actions</a></li>
+              <li><a href="/commands/window">Window</a></li>
+              <li><a href="/commands/viewport">Viewport</a></li>
+              <li><a href="/commands/location">Location</a></li>
+              <li><a href="/commands/navigation">Navigation</a></li>
+              <li><a href="/commands/assertions">Assertions</a></li>
+              <li><a href="/commands/misc">Misc</a></li>
+              <li><a href="/commands/connectors">Connectors</a></li>
+              <li><a href="/commands/aliasing">Aliasing</a></li>
+              <li><a href="/commands/waiting">Waiting</a></li>
+              <li><a href="/commands/network-requests">Network Requests</a></li>
+              <li><a href="/commands/files">Files</a></li>
+              <li><a href="/commands/storage">Storage</a></li>
+              <li><a href="/commands/cookies">Cookies</a></li>
+              <li><a href="/commands/spies-stubs-clocks">Spies, Stubs &amp; Clocks</a></li>
+            </ul>
+          </li>
+          <li><a href="/utilities">Utilities</a></li>
+          <li class="active"><a href="/webdriverio-api">WebDriverIO API</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="https://github.com/webdriverio/webdriverio-example-app">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <div class="container">
+      <h1>WebDriverIO API</h1>
+      <p>Examples of uses of the WebDriverIO API, for a full reference, go to <a href="https://webdriver.io/docs/api" target="_blank">webdriver.io</a>
+      </p>
+    </div>
+  </div>
+  <div class="container content-container">
+    <div id="api-commands">
+      <div class="row">
+
+        <div class="col-xs-12">
+          <h4 id="custom-commands"><a href="https://webdriver.io/docs/customcommands">Custom Commands</a></h4>
+          <p>To add a custom command, use <a href="https://webdriver.io/docs/customcommands"><code>browser.addCommand()</code></a>.</p>
+          <pre><code class="javascript">browser.addCommand('console', {
+  isElement: true
+}, function (method = 'log') {
+  console[method]('The element is', this)
+  return this
+})</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="cookies"><a href="https://webdriver.io/docs/api/browser/getCookies">browser.getCookies()</a></h4>
+          <p>To manage cookies, you can use commands like <a href="https://webdriver.io/docs/api/browser/getCookies"><code>browser.getCookies()</code></a>, <a href="https://webdriver.io/docs/api/browser/setCookies"><code>browser.setCookies()</code></a>, and <a href="https://webdriver.io/docs/api/browser/deleteCookies"><code>browser.deleteCookies()</code></a>.</p>
+          <pre><code class="javascript">await browser.setCookies({ name: 'fakeCookie', value: '123ABC' })
+const cookies = await browser.getCookies(['fakeCookie'])
+console.log(cookies)
+await browser.deleteCookies(['fakeCookie'])</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="capabilities"><a href="https://webdriver.io/docs/api/browser/capabilities">browser.capabilities</a></h4>
+          <p>To get information about the browser and platform, use <a href="https://webdriver.io/docs/api/browser/capabilities"><code>browser.capabilities</code></a>.</p>
+          <pre><code class="javascript">console.log(browser.capabilities.platformName)
+console.log(browser.capabilities.browserName)</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="config"><a href="https://webdriver.io/docs/configuration">WebDriverIO Configuration</a></h4>
+          <p>WebDriverIO configuration is managed in the `wdio.conf.js` file. You can access configuration values through `browser.options`.</p>
+          <pre><code class="javascript">console.log(browser.options.baseUrl)
+console.log(browser.options.waitforTimeout)</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-7">
+          <h4 id="isDisplayed"><a href="https://webdriver.io/docs/api/element/isDisplayed">element.isDisplayed()</a></h4>
+          <p>To see whether a DOM element is visible, use <a href="https://webdriver.io/docs/api/element/isDisplayed"><code>element.isDisplayed()</code></a>.</p>
+          <pre><code class="javascript">const hiddenP = await $('.dom-p p.hidden')
+const visibleP = await $('.dom-p p.visible')
+
+await expect(hiddenP).not.toBeDisplayed()
+await expect(visibleP).toBeDisplayed()</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <div class="dom-p">
+              <p class="hidden">I'm hiding!</p>
+              <p class="visible">I'm visible!</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="environment-variables">Environment Variables</h4>
+          <p>WebDriverIO does not have a built-in environment variable system. You can use a library like `dotenv` to manage environment variables.</p>
+          <pre><code class="javascript">// Using dotenv
+require('dotenv').config()
+
+console.log(process.env.HOST)
+console.log(process.env.API_SERVER)</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="logging"><a href="https://webdriver.io/docs/api/browser/log">browser.log()</a></h4>
+          <p>To add custom log messages, you can use <a href="https://webdriver.io/docs/api/browser/log"><code>browser.log()</code></a>.</p>
+          <pre><code class="javascript"></code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="platform"><a href="https://webdriver.io/docs/api/browser/capabilities">browser.capabilities.platformName</a></h4>
+          <p>To get the name of the underlying OS, use <a href="https://webdriver.io/docs/api/browser/capabilities"><code>browser.capabilities.platformName</code></a>.</p>
+          <pre><code class="javascript">console.log(browser.capabilities.platformName)</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+
+        <div class="col-xs-12">
+          <h4 id="version"><a href="https://webdriver.io/docs/api/browser/capabilities">browser.capabilities.browserVersion</a></h4>
+          <p>To get the version of the browser being run, use <a href="https://webdriver.io/docs/api/browser/capabilities"><code>browser.capabilities.browserVersion</code></a>.</p>
+          <pre><code class="javascript">console.log(browser.capabilities.browserVersion)</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+  <script src="/assets/js/vendor/bootstrap.min.js"></script>
+  <script src="/assets/js/vendor/highlight.pack.js"></script>
+  <script src="/assets/js/scripts.js"></script>
+</body>
+</html>

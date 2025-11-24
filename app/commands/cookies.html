@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Example App | WebDriverIO Example">
+  <meta name="author" content="WebDriver.io">
+  <meta name="copyright" content="WebDriver.io, Inc">
+
+  <title>WebDriver.io: Example App</title>
+
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/assets/css/vendor/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/vendor/fira.css">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">webdriver.io</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li class="active" class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Commands <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/commands/querying">Querying</a></li>
+              <li><a href="/commands/traversal">Traversal</a></li>
+              <li><a href="/commands/actions">Actions</a></li>
+              <li><a href="/commands/window">Window</a></li>
+              <li><a href="/commands/viewport">Viewport</a></li>
+              <li><a href="/commands/location">Location</a></li>
+              <li><a href="/commands/navigation">Navigation</a></li>
+              <li><a href="/commands/assertions">Assertions</a></li>
+              <li><a href="/commands/misc">Misc</a></li>
+              <li><a href="/commands/connectors">Connectors</a></li>
+              <li><a href="/commands/aliasing">Aliasing</a></li>
+              <li><a href="/commands/waiting">Waiting</a></li>
+              <li><a href="/commands/network-requests">Network Requests</a></li>
+              <li><a href="/commands/files">Files</a></li>
+              <li><a href="/commands/storage">Storage</a></li>
+              <li class="active"><a href="/commands/cookies">Cookies</a></li>
+              <li><a href="/commands/spies-stubs-clocks">Spies, Stubs &amp; Clocks</a></li>
+            </ul>
+          </li>
+          <li><a href="/utilities">Utilities</a></li>
+          <li><a href="/webdriverio-api">WebDriverIO API</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+          <li><a href="https://github.com/webdriverio/webdriverio-example-app">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="banner">
+    <div class="container">
+      <h1>Cookies</h1>
+      <p>Examples of managing cookies in WebDriverIO, for a full reference of commands, go to <a href="https://webdriver.io/docs/api" target="_blank">webdriver.io</a>
+      </p>
+    </div>
+  </div>
+  <div class="container content-container">
+    <div id="getCookie">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="getCookie"><a href="https://webdriver.io/docs/api">Get Cookie</a></h4>
+          <p>To get a browser cookie, use the browser.getCookie() method.</p>
+          <pre><code class="javascript">// Click button to set a cookie
+const btn = await $('.set-a-cookie')
+await btn.click()
+
+// Get a specific cookie
+const cookie = await browser.getCookie('token')
+await expect(cookie.value).toBe('123ABC')</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <button class="set-a-cookie btn btn-success">Set Cookie</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="getCookies">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="getCookies"><a href="https://webdriver.io/docs/api">Get All Cookies</a></h4>
+          <p>To get all browser cookies for the current domain, use browser.getCookies().</p>
+          <pre><code class="javascript">// Get all cookies (should be empty initially)
+let cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)
+
+// Click button to set a cookie
+const btn = await $('.set-a-cookie')
+await btn.click()
+
+// Get all cookies again
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(1)
+
+// Check cookie properties
+const cookie = cookies[0]
+await expect(cookie.name).toBe('token')
+await expect(cookie.value).toBe('123ABC')
+await expect(cookie.httpOnly).toBe(false)
+await expect(cookie.secure).toBe(false)</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <button class="set-a-cookie btn btn-success">Set Cookie</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="getAllCookies">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="getAllCookies"><a href="https://webdriver.io/docs/api">Set Cookies</a></h4>
+          <p>To set browser cookies, use browser.setCookie().</p>
+          <pre><code class="javascript">// Get all cookies (should be empty initially)
+let cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)
+
+// Set cookies
+await browser.setCookie({ name: 'key', value: 'value' })
+await browser.setCookie({ name: 'key2', value: 'value2' })
+
+// Get all cookies
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(2)
+
+// Check cookie properties
+await expect(cookies[0].name).toBe('key')
+await expect(cookies[0].value).toBe('value')
+await expect(cookies[1].name).toBe('key2')
+await expect(cookies[1].value).toBe('value2')</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="setCookie">
+      <div class="row">
+
+        <div class="col-xs-12">
+          <h4 id="setCookie"><a href="https://webdriver.io/docs/api">Set Single Cookie</a></h4>
+          <p>To set a single browser cookie, use browser.setCookie().</p>
+          <pre><code class="javascript">// Get all cookies (should be empty initially)
+let cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)
+
+// Set a cookie
+await browser.setCookie({ name: 'foo', value: 'bar' })
+
+// Get the cookie
+const cookie = await browser.getCookie('foo')
+await expect(cookie.value).toBe('bar')</code></pre>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="clearCookie">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="clearCookie"><a href="https://webdriver.io/docs/api">Delete Cookie</a></h4>
+          <p>To delete a specific browser cookie, use browser.deleteCookie().</p>
+          <pre><code class="javascript">// Cookie should not exist initially
+let cookie = await browser.getCookie('token')
+await expect(cookie).toBeUndefined()
+
+// Click button to set a cookie
+const btn = await $('.set-a-cookie')
+await btn.click()
+
+// Verify cookie exists
+cookie = await browser.getCookie('token')
+await expect(cookie.value).toBe('123ABC')
+
+// Delete the cookie
+await browser.deleteCookie('token')
+
+// Verify cookie is deleted
+cookie = await browser.getCookie('token')
+await expect(cookie).toBeUndefined()</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <button class="set-a-cookie btn btn-success">Set Cookie</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="clearCookies">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="clearCookies"><a href="https://webdriver.io/docs/api">Delete All Cookies</a></h4>
+          <p>To delete all browser cookies for the current domain, use browser.deleteAllCookies().</p>
+          <pre><code class="javascript">// Get all cookies (should be empty initially)
+let cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)
+
+// Click button to set a cookie
+const btn = await $('.set-a-cookie')
+await btn.click()
+
+// Verify cookie exists
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(1)
+
+// Delete all cookies
+await browser.deleteAllCookies()
+
+// Verify all cookies are deleted
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)</code></pre>
+        </div>
+        <div class="col-xs-5">
+          <div class="well">
+            <button class="set-a-cookie btn btn-success">Set Cookie</button>
+          </div>
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+
+    <div id="clearAllCookies">
+      <div class="row">
+
+        <div class="col-xs-7">
+          <h4 id="clearAllCookies"><a href="https://webdriver.io/docs/api">Cookie Management</a></h4>
+          <p>Complete cookie management workflow with WebDriverIO.</p>
+          <pre><code class="javascript">// Set multiple cookies
+await browser.setCookie({ name: 'key1', value: 'value1' })
+await browser.setCookie({ name: 'key2', value: 'value2' })
+
+// Get all cookies
+let cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(2)
+
+// Delete a specific cookie
+await browser.deleteCookie('key1')
+
+// Verify deletion
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(1)
+await expect(cookies[0].name).toBe('key2')
+
+// Delete all remaining cookies
+await browser.deleteAllCookies()
+cookies = await browser.getCookies()
+await expect(cookies).toHaveLength(0)</code></pre>
+        </div>
+        <div class="col-xs-5">
+        </div>
+
+        <div class="col-xs-12"><hr></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/vendor/jquery-1.12.0.min.js"></script>
+  <script src="/assets/js/vendor/bootstrap.min.js"></script>
+  <script src="/assets/js/vendor/highlight.pack.js"></script>
+  <script src="/assets/js/scripts.js"></script>
+</body>
+</html>

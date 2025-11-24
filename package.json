@@ -1,0 +1,45 @@
+{
+  "name": "webdriverio-example-kitchensink",
+  "version": "0.0.0-development",
+  "description": "This is an example app used to showcase Webdriver.io End-to-End (E2E) testing. For a full reference of our documentation, go to https://webdriver.io",
+  "main": "index.js",
+  "files": [
+    "app"
+  ],
+  "scripts": {
+    "build": "npm run lint",
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdriverio/webdriverio-example-kitchensink.git"
+  },
+  "author": "Cypress-io",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webdriverio/webdriverio-example-kitchensink/issues"
+  },
+  "homepage": "https://github.com/webdriverio/webdriverio-example-kitchensink#readme",
+  "dependencies": {
+    "npm-run-all2": "7.0.2",
+    "serve": "14.2.5"
+  },
+  "devDependencies": {
+    "@bahmutov/print-env": "1.3.0",
+    "@eslint/js": "9.36.0",
+    "@eslint/json": "0.13.2",
+    "@stylistic/eslint-plugin": "5.4.0",
+    "@wdio/cli": "^7.16.13",
+    "eslint": "9.36.0",
+    "eslint-plugin-mocha": "11.1.0",
+    "globals": "16.4.0",
+    "globby": "11.1.0",
+    "semantic-release": "24.2.6",
+    "start-server-and-test": "2.0.11",
+    "vite": "^6.4.1",
+    "yaml-lint": "1.7.0"
+  },
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0 || >=24.0.0"
+  }
+}
